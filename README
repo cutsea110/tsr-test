@@ -1,0 +1,12 @@
+sudo apt-get install libpcap-dev
+runhaskell Setup.hs configure --user
+runhaskell Setup.hs build
+cp dist/build/tsuru/tsuru .
+
+./tsuru -c B6034 -p 15515 -p 15516 mdf-kospi200.20110216.pcap
+./tsuru -c B6034 -p 15515 -p 15516 -r mdf-kospi200.20110216.pcap
+
+MEMO
+ghc --make Main.hs -o tsuru -O -prof -rtsopts -auto-all -caf-all -fforce-recomp
+strip tsuru
+./tsuru -c B6034 -p 15515 -p 15516 mdf-kospi200.20110216-0.pcap +RTS -p -sstderr -RTS
